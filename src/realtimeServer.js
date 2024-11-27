@@ -8,12 +8,16 @@ module.exports = httpServer =>{
         const cookie= socket.handshake.headers.cookie;
         const username = cookie.split("=").pop();
 
+        socket.emit("user",{user: username});
+
+
         //Escuchar evento del mensaje
         socket.on("send-message", message =>{
             io.emit("message",{
                 user: username,
                 message
             });
+
         })
     })
 }
